@@ -1,16 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
-   <children>
-      <Label layoutX="86.0" layoutY="190.0" text="Now you can start to build the GUI and implement an awesome game">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageGameIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/star-bold.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="SOMETIMES">
+               <children>
+                  <MFXButton onAction="#clickMainMenu" prefWidth="80.0" text="Main Menu" />
+                  <MFXButton onAction="#clickRestart" prefWidth="80.0" text="Restart" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="498.0">
+               <children>
+                  <VBox alignment="CENTER" minWidth="100.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="Your move:" />
+                        <Label fx:id="labelYourMove" styleClass="labelResult" text="Label" />
+                     </children>
+                  </VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER" minWidth="100.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="Winner:" />
+                        <Label fx:id="labelWinner" styleClass="labelResult" text="Label" />
+                     </children>
+                  </VBox>
+                  <HBox layoutX="196.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER" minWidth="100.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="AI move:" />
+                        <Label fx:id="labelAIMove" styleClass="labelResult" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <MFXButton onAction="#clickRock" prefWidth="70.0" text="Rock" />
+                  <MFXButton onAction="#clickPaper" prefWidth="70.0" text="Paper" />
+                  <MFXButton onAction="#clickScissors" prefWidth="70.0" text="Scissors" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
