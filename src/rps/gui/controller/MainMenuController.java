@@ -5,6 +5,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,7 +22,7 @@ public class MainMenuController {
     @FXML private MFXTextField txtPlayerName;
 
     @FXML
-    void btnStartAction(ActionEvent event) throws IOException {
+    void btnStartAction(ActionEvent actionEvent) throws IOException {
         if (!txtPlayerName.getText().isEmpty()){
             IPlayer human = new Player(txtPlayerName.getText().trim(), PlayerType.Human);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/rps/gui/view/GameView.fxml"));
@@ -31,6 +32,9 @@ public class MainMenuController {
             GameViewController gameViewController = fxmlLoader.getController();
             gameViewController.setHuman(human);
             stage.show();
+
+            Node node = (Node) actionEvent.getSource();
+            node.getScene().getWindow().hide();
         }
         else {
             new Alert(Alert.AlertType.ERROR, "Player name cannot be empty!").show();

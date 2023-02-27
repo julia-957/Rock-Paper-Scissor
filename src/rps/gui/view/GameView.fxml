@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -41,7 +40,7 @@
                <children>
                   <VBox alignment="CENTER" minWidth="100.0">
                      <children>
-                        <Label styleClass="labelTitle" text="Your move:" />
+                        <Label fx:id="labelPlayerName" styleClass="labelTitle" text="Your move:" />
                         <Label fx:id="labelYourMove" styleClass="labelResult" text="Label" />
                      </children>
                   </VBox>
@@ -55,7 +54,7 @@
                   <HBox layoutX="196.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER" minWidth="100.0">
                      <children>
-                        <Label styleClass="labelTitle" text="AI move:" />
+                        <Label fx:id="labelAIName" styleClass="labelTitle" text="AI move:" />
                         <Label fx:id="labelAIMove" styleClass="labelResult" text="Label" />
                      </children>
                   </VBox>
