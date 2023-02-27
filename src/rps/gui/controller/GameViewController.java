@@ -2,7 +2,11 @@ package rps.gui.controller;
 
 // Java imports
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+
 import rps.bll.game.GameManager;
 import rps.bll.game.Move;
 import rps.bll.player.IPlayer;
@@ -18,6 +22,13 @@ import java.util.ResourceBundle;
  * @author smsj
  */
 public class GameViewController implements Initializable {
+
+    @FXML
+    private ImageView imageGameIcon;
+
+    @FXML
+    private Label labelAIMove, labelWinner, labelYourMove;
+
     IPlayer human;
     IPlayer bot;
     GameManager ge;
@@ -30,16 +41,26 @@ public class GameViewController implements Initializable {
         ge = new GameManager(human, bot);
     }
 
-    public void btnRockAction(ActionEvent actionEvent){
+    public void clickRock(ActionEvent actionEvent){
         ge.playRound(Move.Rock);
     }
 
-    public void btnPaperAction(ActionEvent actionEvent){
+    public void clickPaper(ActionEvent actionEvent){
         ge.playRound(Move.Paper);
     }
 
-    public void btnScissors(ActionEvent actionEvent){
+    public void clickScissors(ActionEvent actionEvent){
         ge.playRound(Move.Scissor);
+    }
+
+    @FXML
+    private void clickMainMenu(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void clickRestart(ActionEvent event) {
+
     }
 
     public void setHuman(IPlayer human) {
