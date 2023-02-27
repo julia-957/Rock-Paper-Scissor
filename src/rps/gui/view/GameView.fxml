@@ -10,29 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
-   <left>
-      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="imageGameIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/star-bold.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="SOMETIMES">
-               <children>
-                  <MFXButton onAction="#clickMainMenu" prefWidth="80.0" text="Main Menu" />
-                  <MFXButton onAction="#clickRestart" prefWidth="80.0" text="Restart" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </VBox>
-         </children>
-      </VBox>
-   </left>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,4 +54,36 @@
          </children>
       </VBox>
    </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageGameIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/star-bold.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <Label styleClass="labelTitle" text="Number of played rounds:" textAlignment="CENTER" wrapText="true" />
+                  <Label fx:id="labelGameRound" styleClass="labelResult" text="0" />
+               </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="SOMETIMES">
+               <children>
+                  <MFXButton onAction="#clickRestart" prefWidth="80.0" text="Restart" />
+                  <MFXButton onAction="#clickMainMenu" prefWidth="80.0" text="Main Menu" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>

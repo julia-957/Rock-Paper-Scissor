@@ -33,7 +33,7 @@ public class GameViewController implements Initializable {
     @FXML
     private ImageView imageGameIcon;
     @FXML
-    private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName;
+    private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound;
 
     IPlayer human;
     IPlayer bot;
@@ -45,6 +45,11 @@ public class GameViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         bot = new Player(getRandomBotName(), PlayerType.AI);
         labelAIName.setText(bot.getPlayerName() + "'s move:");
+
+        labelAIMove.setText("");
+        labelYourMove.setText("");
+        labelWinner.setText("");
+        labelGameRound.setText("0");
     }
 
     @FXML
@@ -78,7 +83,12 @@ public class GameViewController implements Initializable {
     }
 
     @FXML
-    private void clickRestart(ActionEvent event) {
+    private void clickRestart(ActionEvent actionEvent) {
+        gm = new GameManager(human, bot);
+        labelAIMove.setText("");
+        labelYourMove.setText("");
+        labelWinner.setText("");
+        labelGameRound.setText("0");
     }
 
     public void setHuman(IPlayer human) {
@@ -119,5 +129,6 @@ public class GameViewController implements Initializable {
                 labelAIMove.setText(result.getWinnerMove().toString());
             }
         }
+        labelGameRound.setText(String.valueOf(result.getRoundNumber()));
     }
 }
