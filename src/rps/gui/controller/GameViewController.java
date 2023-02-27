@@ -45,7 +45,6 @@ public class GameViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         bot = new Player(getRandomBotName(), PlayerType.AI);
         labelAIName.setText(bot.getPlayerName() + "'s move:");
-        gm = new GameManager(human, bot);
     }
 
     @FXML
@@ -84,6 +83,7 @@ public class GameViewController implements Initializable {
 
     public void setHuman(IPlayer human) {
         this.human = human;
+        gm = new GameManager(this.human, bot);
         labelPlayerName.setText(human.getPlayerName() + "'s move:");
     }
 
@@ -105,8 +105,8 @@ public class GameViewController implements Initializable {
     private void updateLabels(Result result){
         if (result.getType() == ResultType.Tie){
             labelWinner.setText("Tie");
-            labelPlayerName.setText(result.getWinnerPlayer().getPlayerName());
-            labelAIName.setText(result.getWinnerPlayer().getPlayerName());
+            labelYourMove.setText(result.getWinnerMove().toString());
+            labelAIMove.setText(result.getLoserMove().toString());
         } else{
             if (result.getWinnerPlayer().getPlayerName().equals(human.getPlayerName())){
                 labelYourMove.setText(result.getWinnerMove().toString());
