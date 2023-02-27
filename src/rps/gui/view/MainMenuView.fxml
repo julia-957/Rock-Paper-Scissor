@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.MainMenuController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <MFXTextField fx:id="txtPlayerName" alignment="TOP_CENTER" floatMode="BORDER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Player name" />
+            <MFXButton fx:id="btnStartGame" onAction="#btnStartAction" rippleColor="#bdbdbd" text="Start game" />
+         </children>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>
