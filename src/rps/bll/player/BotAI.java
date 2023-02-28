@@ -26,50 +26,39 @@ public class BotAI {
         parentNode.getChildren().add(scissorsNode);
     }
 
+    public Move botThreeSequence(ArrayList<Result> results){
+        return Move.Scissor;
+        //TODO add sexy logic
+    }
     public Move botBasic(ArrayList<Result> results){
         if (results.size() > 0)
             result = results.get(results.size()-1);
-
         if(result == null){
             return moves[getRandomNumber()];
         }
-
         if(result.getType() == ResultType.Win) {
-         if (result.getWinnerMove() == Move.Rock && result.getWinnerPlayer().getPlayerType() == PlayerType.Human) {
+         boolean humanWinner = result.getWinnerPlayer().getPlayerType() == PlayerType.Human;
+         if ((result.getWinnerMove() == Move.Rock && humanWinner) || (result.getLoserMove() == Move.Scissor && !humanWinner)){
              return Move.Paper;
          }
-         if (result.getWinnerMove() == Move.Scissor && result.getWinnerPlayer().getPlayerType() == PlayerType.Human) {
+         if ((result.getWinnerMove() == Move.Scissor && humanWinner) || (result.getLoserMove() == Move.Paper && !humanWinner)){
              return Move.Rock;
          }
-         if (result.getWinnerMove() == Move.Paper && result.getWinnerPlayer().getPlayerType() == PlayerType.Human) {
-             return Move.Scissor;
-         }
-
-
-         if (result.getLoserMove() == Move.Scissor && result.getLoserPlayer().getPlayerType() == PlayerType.Human) {
-             return Move.Paper;
-         }
-         if (result.getLoserMove() == Move.Paper && result.getLoserPlayer().getPlayerType() == PlayerType.Human) {
-             return Move.Rock;
-         }
-         if (result.getLoserMove() == Move.Rock && result.getLoserPlayer().getPlayerType() == PlayerType.Human) {
+         if ((result.getWinnerMove() == Move.Paper && humanWinner) || (result.getLoserMove() == Move.Rock && !humanWinner)){
              return Move.Scissor;
          }
         }
-
-
-        if(result.getType()== ResultType.Tie) {
-         if(result.getWinnerMove() == Move.Rock && result.getWinnerPlayer().getPlayerType() == PlayerType.Human){
+        if(result.getType()== ResultType.Tie){
+         if(result.getWinnerMove() == Move.Rock){
              return Move.Scissor;
          }
-         if(result.getWinnerMove() == Move.Scissor && result.getWinnerPlayer().getPlayerType() == PlayerType.Human){
+         if(result.getWinnerMove() == Move.Scissor){
              return Move.Paper;
          }
-         if(result.getWinnerMove() == Move.Paper && result.getWinnerPlayer().getPlayerType() == PlayerType.Human){
+         if(result.getWinnerMove() == Move.Paper){
              return Move.Rock;
          }
         }
-
      return moves[getRandomNumber()];
     }
 
