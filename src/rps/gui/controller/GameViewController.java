@@ -131,4 +131,16 @@ public class GameViewController implements Initializable {
         }
         labelGameRound.setText(String.valueOf(result.getRoundNumber()));
     }
+    @FXML
+    public void clickStats(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/rps/gui/view/StatsView.fxml"));
+        Parent root = loader.load();
+        GameStatsController controller = loader.getController();
+        controller.setGameManager(gm);
+        Stage stage = new Stage();
+        stage.setTitle("Rock, Paper, Scissors");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
