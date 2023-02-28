@@ -29,7 +29,7 @@ public class MarkovChain {
 
     public void updateMarkovChain(ArrayList<Result> results) {
         if (results.size() > 1) {
-            Result previous = results.get(results.size()-2);
+            Result previous = results.get(results.size() - 2);
             Move previousMove = previous.getLoserMove();
             if (previous.getWinnerPlayer().getPlayerType() == PlayerType.Human)
                 previousMove = previous.getWinnerMove();
@@ -40,13 +40,6 @@ public class MarkovChain {
                 humanMove = result.getWinnerMove();
 
             matrix[previousMove.ordinal()][humanMove.ordinal()]++;
-            for (int i = 0; i<3; i++){
-                for (int j = 0; j < 3; j++) {
-                    System.out.print(matrix[i][j]);
-                }
-                System.out.print("\n");
-            }
-            System.out.println();
         }
     }
 
