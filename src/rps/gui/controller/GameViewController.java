@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.stage.Stage;
@@ -31,7 +32,7 @@ import java.util.ResourceBundle;
  */
 public class GameViewController implements Initializable {
     @FXML
-    private ImageView imageGameIcon;
+    private ImageView imageGameIcon, humanMove, botMove;
     @FXML
     private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound;
 
@@ -50,6 +51,9 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
+
+        humanMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
+        botMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
     }
 
     @FXML
