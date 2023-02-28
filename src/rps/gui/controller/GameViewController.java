@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import rps.bll.game.GameManager;
 import rps.bll.game.Move;
@@ -31,11 +33,12 @@ import java.util.ResourceBundle;
  * @author smsj
  */
 public class GameViewController implements Initializable {
-    @FXML
-    private ImageView imageGameIcon, humanMove, botMove;
-    @FXML
-    private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound;
-
+    @FXML private ImageView imageGameIcon, humanMove, botMove;
+    @FXML private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound;
+    @FXML private VBox humanMoveVbox, botMoveVBox, menuBarVBox, mainContainer;
+    @FXML private HBox centerGraphicHBox, statisticsHBox, playButtonsHBox;
+    @FXML private Scene scene;
+    private final Image rockSymbol = new Image("/rps/gui/view/icons/rock-hand.png");
     IPlayer human;
     IPlayer bot;
     GameManager gm;
@@ -51,9 +54,26 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
+    }
 
-        humanMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
-        botMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
+    private void bindSizes(){
+        centerGraphicHBox.prefHeightProperty().bind(scene.heightProperty().subtract(playButtonsHBox.heightProperty())
+                .subtract(statisticsHBox.heightProperty().getValue()));
+        centerGraphicHBox.prefWidthProperty().bind(scene.widthProperty().subtract(menuBarVBox.widthProperty()));
+
+        humanMoveVbox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
+        humanMoveVbox.prefHeightProperty().bind((centerGraphicHBox.prefHeightProperty()));
+
+        humanMove.fitWidthProperty().bind(humanMoveVbox.prefWidthProperty());
+        humanMove.fitHeightProperty().bind(humanMoveVbox.prefHeightProperty());
+        humanMove.setImage(rockSymbol);
+
+        //botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
+        //botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefHeightProperty()));
+
+        botMove.fitWidthProperty().bind(humanMove.fitWidthProperty());
+        botMove.fitHeightProperty().bind(humanMove.fitHeightProperty());
+        botMove.setImage(rockSymbol);
     }
 
     @FXML
@@ -93,6 +113,14 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
+
+        System.out.println("Center height: " + centerGraphicHBox.getHeight());
+        System.out.println("Center width: " +centerGraphicHBox.getWidth());
+        System.out.println("Statistics height: " + statisticsHBox.getHeight());
+        System.out.println("Play buttons height: " + playButtonsHBox.getHeight());
+        System.out.println("Scene height: " + scene.getHeight());
+
+        System.out.println(centerGraphicHBox.maxHeightProperty().getValue());
     }
 
     public void setHuman(IPlayer human) {
@@ -147,5 +175,10 @@ public class GameViewController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+        bindSizes();
     }
 }

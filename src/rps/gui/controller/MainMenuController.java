@@ -25,9 +25,11 @@ public class MainMenuController {
             IPlayer human = new Player(txtPlayerName.getText().trim(), PlayerType.Human);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/rps/gui/view/GameView.fxml"));
             Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Rock, Paper, Scissors");
-            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setScene(scene);
             GameViewController gameViewController = fxmlLoader.getController();
+            gameViewController.setScene(scene);
             gameViewController.setHuman(human);
             stage.show();
 

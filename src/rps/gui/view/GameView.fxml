@@ -11,9 +11,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="backgroundPane" stylesheets="@bootificashun.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="mainContainer" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="498.0">
+            <HBox fx:id="statisticsHBox" alignment="CENTER" prefHeight="35.0" prefWidth="498.0">
                <children>
                   <VBox alignment="CENTER" minWidth="100.0">
                      <children>
@@ -39,21 +39,24 @@
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="centerGraphicHBox" VBox.vgrow="SOMETIMES">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="humanMoveVbox" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="humanMove" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="botMoveVBox" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="botMove" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
                </children></HBox>
-            <HBox alignment="CENTER" spacing="30.0">
+            <HBox fx:id="playButtonsHBox" alignment="CENTER" spacing="30.0">
                <children>
                   <MFXButton onAction="#clickRock" prefWidth="70.0" text="Rock" />
                   <MFXButton onAction="#clickPaper" prefWidth="70.0" text="Paper" />
@@ -62,12 +65,15 @@
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
    </center>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuBarVBox" alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="imageGameIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -97,6 +103,9 @@
                </padding>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </right>
 </BorderPane>
