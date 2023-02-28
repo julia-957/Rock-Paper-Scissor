@@ -1,14 +1,10 @@
 package rps.bll.player;
 
-import com.sun.source.tree.Tree;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,8 +23,9 @@ public class BotAI {
     private TreeNode scissorsNode = new TreeNode(Move.Scissor, 1, 0);
     private HashMap<Move, TreeNode> mainNodes;
     private final TreeNode parentNode = new TreeNode(null, 0, 0);
-    private HashMap<TreeNode, Integer> allNodes = new HashMap<>();
+    private List<TreeNode> allNodes = new ArrayList<>();
     private HashMap<Integer, HBox> levelHBox = new HashMap<>();
+    private MarkovChain markovChain = new MarkovChain();
     @FXML private VBox vbox;
     private Stage stage;
 
@@ -119,17 +116,17 @@ public class BotAI {
                     parent.getChildren().add(new TreeNode(humanMove, i+1, 1));
                 else
                     parent = parent.getChild(humanMove);
-                allNodes.put(i, parent);
-                levelHBox.put(i, new HBox(10));
             }
-            createVisibleNode();
-            System.out.println(allNodes);
+            //createVisibleNode();
         }
+        /*
         try {
             visualizeMap();
         } catch (IOException e){
             e.printStackTrace();
         }
+
+         */
     }
 
     private void visualizeMap() throws IOException {
@@ -147,19 +144,37 @@ public class BotAI {
         vbox.getChildren().add(new HBox(new Button("Parent")));
         vbox.getChildren().add(new HBox(10, new Button(rockNode.getMove().toString()),
                 new Button(paperNode.getMove().toString()), new Button(scissorsNode.getMove().toString())));
-        vbox.getChildren().addAll(allNodes.values());
         stage.show();
     }
 
     private void createVisibleNode(){
-        for (int i = 1; i < levelHBox.size(); i++){
+        for (int i = 1; i <= levelHBox.size(); i++){
             HBox hbox = levelHBox.get(i);
             int level = i;
-            List<TreeNode> children = allNodes.keySet().stream().filter(key -> allNodes.get(key) == level).toList();
+            List<TreeNode> children = allNodes.stream().filter(node -> node.getLevel() == level).toList();
             for (TreeNode treeNode: children){
                 hbox.getChildren().add(new Button(treeNode.getMove().toString()));
             }
             vbox.getChildren().add(hbox);
         }
+    }
+
+    public Move botMarkovChain(ArrayList<Result> results){
+        if (results.size() > 0){
+            markovChain.updateMarkovChain(results);
+            Move predicted = markovChain.getNextMove(results);
+            if (predicted == Move.Paper)
+                return Move.Scissor;
+            else if (predicted == Move.Rock)
+                return Move.Paper;
+            else
+                return Move.Rock;
+        }
+        else
+            return moves[getRandomNumber()];
+    }
+
+    public int[][] getMarkovMatrix(){
+        return markovChain.getMatrix();
     }
 }

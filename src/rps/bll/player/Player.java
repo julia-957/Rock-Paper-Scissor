@@ -51,7 +51,10 @@ public class Player implements IPlayer {
         botAI.updateTree(results);
 
         //Implement better AI here...
-        //return Move.Rock;
-        return botAI.botBasic(results);
+        return botAI.botMarkovChain(results);
+    }
+
+    public BotAI getBotAI() {
+        return botAI;
     }
 }

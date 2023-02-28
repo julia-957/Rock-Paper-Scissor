@@ -42,6 +42,7 @@ public class GameViewController implements Initializable {
     private IPlayer human;
     private IPlayer bot;
     private GameManager gm;
+    private GameStatsController gameStatsController;
     /**
      * Initializes the controller class.
      */
@@ -80,18 +81,21 @@ public class GameViewController implements Initializable {
     private void clickRock(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Rock);
         updateLabels(result);
+        callUpdateMarkov();
     }
 
     @FXML
     private void clickPaper(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Paper);
         updateLabels(result);
+        callUpdateMarkov();
     }
 
     @FXML
     private void clickScissors(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Scissor);
         updateLabels(result);
+        callUpdateMarkov();
     }
 
     @FXML
@@ -113,14 +117,7 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
-
-        System.out.println("Center height: " + centerGraphicHBox.getHeight());
-        System.out.println("Center width: " +centerGraphicHBox.getWidth());
-        System.out.println("Statistics height: " + statisticsHBox.getHeight());
-        System.out.println("Play buttons height: " + playButtonsHBox.getHeight());
-        System.out.println("Scene height: " + scene.getHeight());
-
-        System.out.println(centerGraphicHBox.maxHeightProperty().getValue());
+        callUpdateMarkov();
     }
 
     public void setHuman(IPlayer human) {
@@ -170,16 +167,22 @@ public class GameViewController implements Initializable {
         stage.setTitle("Stats:");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/rps/gui/view/StatsView.fxml"));
         Parent root = loader.load();
-        GameStatsController controller = loader.getController();
-        controller.setGameManager(gm);
-        System.out.println("GameViewController: " + gm);
+        gameStatsController = loader.getController();
+        gameStatsController.setGameManager(gm);
+        //System.out.println("GameViewController: " + gm);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        stage.setOnHiding(event -> gameStatsController = null);
     }
 
     public void setScene(Scene scene) {
         this.scene = scene;
         bindSizes();
+    }
+
+    private void callUpdateMarkov(){
+        if (gameStatsController != null)
+            gameStatsController.updateMatrix();
     }
 }
