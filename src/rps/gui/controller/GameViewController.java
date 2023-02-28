@@ -39,9 +39,9 @@ public class GameViewController implements Initializable {
     @FXML private HBox centerGraphicHBox, statisticsHBox, playButtonsHBox;
     @FXML private Scene scene;
     private final Image rockSymbol = new Image("/rps/gui/view/icons/rock-hand.png");
-    IPlayer human;
-    IPlayer bot;
-    GameManager gm;
+    private IPlayer human;
+    private IPlayer bot;
+    private GameManager gm;
     /**
      * Initializes the controller class.
      */
@@ -68,8 +68,8 @@ public class GameViewController implements Initializable {
         humanMove.fitHeightProperty().bind(humanMoveVbox.prefHeightProperty());
         humanMove.setImage(rockSymbol);
 
-        //botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
-        //botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefHeightProperty()));
+        botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
+        botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefHeightProperty()));
 
         botMove.fitWidthProperty().bind(humanMove.fitWidthProperty());
         botMove.fitHeightProperty().bind(humanMove.fitHeightProperty());
@@ -163,14 +163,16 @@ public class GameViewController implements Initializable {
         }
         labelGameRound.setText(String.valueOf(result.getRoundNumber()));
     }
+
     @FXML
     public void clickStats(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Stats:");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/rps/gui/view/StatsView.fxml"));
         Parent root = loader.load();
         GameStatsController controller = loader.getController();
         controller.setGameManager(gm);
-        Stage stage = new Stage();
-        stage.setTitle("Rock, Paper, Scissors");
+        System.out.println("GameViewController: " + gm);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

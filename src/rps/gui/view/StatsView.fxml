@@ -13,7 +13,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <MFXTableView prefHeight="600.0" prefWidth="400.0" VBox.vgrow="ALWAYS" fx:id="table" />
+                        <MFXTableView fx:id="table" footerVisible="false" prefHeight="600.0" prefWidth="400.0" VBox.vgrow="ALWAYS" />
                      </children></VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
                </children>

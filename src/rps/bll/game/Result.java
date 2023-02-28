@@ -35,8 +35,6 @@ public class Result {
         this.roundNumber = roundNumber;
     }
 
-    public Result(){}
-
     public Move getWinnerMove() {
         return winnerMove;
     }

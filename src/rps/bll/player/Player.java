@@ -14,10 +14,9 @@ import java.util.ArrayList;
  * @author smsj
  */
 public class Player implements IPlayer {
-
     private String name;
     private PlayerType type;
-    BotAI botAI = new BotAI();
+    private BotAI botAI = new BotAI();
 
     /**
      * @param name
@@ -49,8 +48,10 @@ public class Player implements IPlayer {
     public Move doMove(IGameState state) {
         //Historic data to analyze and decide next move...
         ArrayList<Result> results = (ArrayList<Result>) state.getHistoricResults();
+        botAI.updateTree(results);
 
-        //return botAI.botBasic();
-        return botAI.botRandom();
+        //Implement better AI here...
+        //return Move.Rock;
+        return botAI.botBasic(results);
     }
 }
