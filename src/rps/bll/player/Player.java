@@ -48,6 +48,7 @@ public class Player implements IPlayer {
     public Move doMove(IGameState state) {
         //Historic data to analyze and decide next move...
         ArrayList<Result> results = (ArrayList<Result>) state.getHistoricResults();
+        botAI.updateTree(results);
 
         //Implement better AI here...
         //return Move.Rock;
