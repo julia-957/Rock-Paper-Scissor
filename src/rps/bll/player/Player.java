@@ -17,6 +17,7 @@ public class Player implements IPlayer {
 
     private String name;
     private PlayerType type;
+    BotAI botAI = new BotAI();
 
     /**
      * @param name
@@ -50,6 +51,7 @@ public class Player implements IPlayer {
         ArrayList<Result> results = (ArrayList<Result>) state.getHistoricResults();
 
         //Implement better AI here...
-        return Move.Rock;
+        //return Move.Rock;
+        return botAI.botBasic();
     }
 }

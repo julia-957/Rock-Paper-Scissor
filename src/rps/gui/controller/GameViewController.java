@@ -51,9 +51,6 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
-
-        humanMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
-        botMove.setImage(new Image("/rps/gui/view/icons/rock-hand.png"));
     }
 
     @FXML
