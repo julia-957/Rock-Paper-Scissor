@@ -166,12 +166,13 @@ public class GameViewController implements Initializable {
 
     @FXML
     public void clickStats(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Stats:");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/rps/gui/view/StatsView.fxml"));
         Parent root = loader.load();
         GameStatsController controller = loader.getController();
         controller.setGameManager(gm);
-        Stage stage = new Stage();
-        stage.setTitle("Rock, Paper, Scissors");
+        System.out.println("GameViewController: " + gm);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
