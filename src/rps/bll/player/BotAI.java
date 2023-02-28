@@ -57,6 +57,10 @@ public class BotAI {
      return moves[getRandomNumber()];
     }
 
+    public Move botRandom(){
+        return moves[getRandomNumber()];
+    }
+
     private int getRandomNumber(){
         Random random = new Random();
         return random.nextInt(3);

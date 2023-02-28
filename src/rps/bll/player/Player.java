@@ -50,8 +50,7 @@ public class Player implements IPlayer {
         //Historic data to analyze and decide next move...
         ArrayList<Result> results = (ArrayList<Result>) state.getHistoricResults();
 
-        //Implement better AI here...
-        //return Move.Rock;
-        return botAI.botBasic();
+        //return botAI.botBasic();
+        return botAI.botRandom();
     }
 }
