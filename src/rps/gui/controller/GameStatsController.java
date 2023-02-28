@@ -19,12 +19,15 @@ public class GameStatsController implements Initializable {
     private MFXTableView<Result> table;
     private GameManager gm;
     @Override
+
     public void initialize(URL location, ResourceBundle resources) {
         SetupTable();
     }
+
     public void setGameManager(GameManager gm){
         this.gm = gm;
     }
+
     private void SetupTable(){
         MFXTableColumn<Result> roundNumberColumn = new MFXTableColumn<>("RoundNumber", true, Comparator.comparing(Result::getRoundNumber));
         MFXTableColumn<Result> winnerColumn = new MFXTableColumn<>("Winner", true,

@@ -14,10 +14,9 @@ import java.util.ArrayList;
  * @author smsj
  */
 public class Player implements IPlayer {
-
     private String name;
     private PlayerType type;
-    BotAI botAI = new BotAI();
+    private BotAI botAI = new BotAI();
 
     /**
      * @param name
@@ -52,6 +51,6 @@ public class Player implements IPlayer {
 
         //Implement better AI here...
         //return Move.Rock;
-        return botAI.botBasic();
+        return botAI.botBasic(results);
     }
 }

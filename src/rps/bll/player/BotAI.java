@@ -4,19 +4,20 @@ import rps.bll.game.Move;
 import rps.bll.game.Result;
 import rps.bll.game.ResultType;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BotAI {
-
-    Result result = new Result();
+    Result result;
     Move[] moves = {Move.Scissor, Move.Paper, Move.Rock};
 
-    public Move botBasic(){
+    public Move botBasic(ArrayList<Result> results){
+        if (results.size() > 0)
+            result = results.get(results.size()-1);
 
-        if(result.getType() == null){
+        if(result == null){
             return moves[getRandomNumber()];
         }
-
 
         if(result.getType() == ResultType.Win) {
          if (result.getWinnerMove() == Move.Rock && result.getWinnerPlayer().getPlayerType() == PlayerType.Human) {
