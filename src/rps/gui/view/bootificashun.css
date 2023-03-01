@@ -20,5 +20,6 @@
     -fx-text-fill: black;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
+    -fx-border-color: #cccccc;
     -mfx-button-type: raised;
 }

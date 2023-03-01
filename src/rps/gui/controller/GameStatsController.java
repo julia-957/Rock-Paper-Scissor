@@ -117,7 +117,7 @@ public class GameStatsController implements Initializable {
         table.getTableColumns().addAll(roundNumberColumn, winnerColumn, winnerMoveColumn, loserColumn, loserMoveColumn);
         //System.out.println("GameStatsController.SetupTable() gm = " + gm);
         if (gm != null)
-            table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults())); //TODO: change to observable list in game manager
+            table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults()));
     }
 
     public void updateMatrix(){
@@ -133,6 +133,7 @@ public class GameStatsController implements Initializable {
             }
         }
         if (gm != null)
-            table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults())); //TODO: change to observable list in game manager
+            table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults()));
+        table.scrollToLast();
     }
 }

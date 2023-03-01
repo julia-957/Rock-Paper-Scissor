@@ -15,16 +15,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import rps.bll.game.GameManager;
-import rps.bll.game.Move;
-import rps.bll.game.Result;
-import rps.bll.game.ResultType;
+import rps.bll.game.*;
 import rps.bll.player.IPlayer;
 import rps.bll.player.Player;
 import rps.bll.player.PlayerType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -34,7 +32,7 @@ import java.util.ResourceBundle;
  */
 public class GameViewController implements Initializable {
     @FXML private ImageView imageGameIcon, humanMove, botMove;
-    @FXML private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound;
+    @FXML private Label labelAIMove, labelWinner, labelYourMove, labelPlayerName, labelAIName, labelGameRound, labelGamesWon, labelTies, labelBotWins;
     @FXML private VBox humanMoveVbox, botMoveVBox, menuBarVBox, mainContainer;
     @FXML private HBox centerGraphicHBox, statisticsHBox, playButtonsHBox;
     @FXML private Scene scene;
@@ -55,6 +53,9 @@ public class GameViewController implements Initializable {
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
+        labelGamesWon.setText("0%");
+        labelTies.setText("0%");
+        labelBotWins.setText("0%");
     }
 
     private void bindSizes(){
@@ -81,6 +82,7 @@ public class GameViewController implements Initializable {
     private void clickRock(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Rock);
         updateLabels(result);
+        updatePercentages();
         callUpdateMarkov();
     }
 
@@ -88,6 +90,7 @@ public class GameViewController implements Initializable {
     private void clickPaper(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Paper);
         updateLabels(result);
+        updatePercentages();
         callUpdateMarkov();
     }
 
@@ -95,6 +98,7 @@ public class GameViewController implements Initializable {
     private void clickScissors(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Scissor);
         updateLabels(result);
+        updatePercentages();
         callUpdateMarkov();
     }
 
@@ -184,5 +188,48 @@ public class GameViewController implements Initializable {
     private void callUpdateMarkov(){
         if (gameStatsController != null)
             gameStatsController.updateMatrix();
+    }
+
+    private void updatePercentages(){
+        labelGamesWon.setText(getHumanWinPercentage());
+        labelTies.setText(getTiePercentage());
+        labelBotWins.setText(getBotWinPercentage());
+    }
+
+    private String getBotWinPercentage() {
+        gm.getGameState().getHistoricResults();
+        double botWins = 0;
+        for (Result r: gm.getGameState().getHistoricResults()){
+            if(r.getWinnerPlayer().getPlayerType().equals(PlayerType.AI) && r.getType().equals(ResultType.Win))
+                botWins++;
+        }
+
+        double winPercentage = (botWins/gm.getGameState().getRoundNumber())*100;
+
+        return (((int) winPercentage) + "%");
+    }
+
+    private String getHumanWinPercentage() {
+        gm.getGameState().getHistoricResults();
+        double humanWins = 0;
+        for (Result r: gm.getGameState().getHistoricResults()){
+            if(r.getWinnerPlayer().getPlayerType().equals(PlayerType.Human) && r.getType().equals(ResultType.Win))
+                humanWins++;
+        }
+        double winPercentage = (humanWins/gm.getGameState().getRoundNumber())*100;
+        
+        return (((int) winPercentage) + "%");
+    }
+
+    private String getTiePercentage(){
+        gm.getGameState().getHistoricResults();
+        double ties = 0;
+        for (Result r: gm.getGameState().getHistoricResults()){
+            if(r.getType().equals(ResultType.Tie)){
+                ties++;
+            }
+        }
+        double tiePercentage = (ties/gm.getGameState().getRoundNumber()*100);
+        return (((int) tiePercentage) + "%");
     }
 }

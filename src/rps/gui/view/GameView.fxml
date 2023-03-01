@@ -87,6 +87,33 @@
                <children>
                   <Label styleClass="labelTitle" text="Rounds played:" textAlignment="CENTER" wrapText="true" />
                   <Label fx:id="labelGameRound" styleClass="labelResult" text="0" />
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="Human wins:" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="labelGamesWon" styleClass="labelResult" text="0" />
+                     </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="15.0" layoutY="88.0" spacing="5.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="Bot wins:" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="labelBotWins" styleClass="labelResult" text="0" />
+                     </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="15.0" layoutY="88.0" spacing="5.0">
+                     <children>
+                        <Label styleClass="labelTitle" text="Ties:" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="labelTies" styleClass="labelResult" text="0" />
+                     </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </VBox>
                </children>
                <padding>
                   <Insets left="5.0" right="5.0" />
