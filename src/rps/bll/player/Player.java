@@ -50,7 +50,7 @@ public class Player implements IPlayer {
         ArrayList<Result> results = (ArrayList<Result>) state.getHistoricResults();
 
         //Implement better AI here...
-        return botAI.botMarkovChain(results);
+        return botAI.botWilhelm(results);
     }
 
     public BotAI getBotAI() {
