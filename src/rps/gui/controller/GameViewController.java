@@ -36,7 +36,8 @@ public class GameViewController implements Initializable {
     @FXML private VBox humanMoveVbox, botMoveVBox, menuBarVBox, mainContainer;
     @FXML private HBox centerGraphicHBox, statisticsHBox, playButtonsHBox;
     @FXML private Scene scene;
-    private final Image rockSymbol = new Image("/rps/gui/view/icons/rock-hand.png");
+    private final Image rockSymbol = new Image("/rps/gui/view/icons/robotWithBubble.png");
+    private final Image wilhelm = new Image("/rps/gui/view/icons/wilhelm.png");
     private IPlayer human;
     private IPlayer bot;
     private GameManager gm;
@@ -47,6 +48,7 @@ public class GameViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bot = new Player("Wi1h31m", PlayerType.AI);
+        imageGameIcon.setImage(wilhelm);
         labelAIName.setText(bot.getPlayerName() + "'s move:");
 
         labelAIMove.setText("");

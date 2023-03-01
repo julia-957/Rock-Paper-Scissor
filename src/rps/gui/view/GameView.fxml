@@ -55,7 +55,10 @@
                         <ImageView fx:id="botMove" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
-               </children></HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></HBox>
             <HBox fx:id="playButtonsHBox" alignment="CENTER" spacing="30.0">
                <children>
                   <MFXButton onAction="#clickRock" prefWidth="80.0" text="Rock" />
@@ -70,15 +73,15 @@
                </VBox.margin>
             </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <right>
-      <VBox fx:id="menuBarVBox" alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuBarVBox" alignment="TOP_CENTER" prefHeight="361.0" prefWidth="100.0" styleClass="menu-bar" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="imageGameIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/star-bold.png" />
-               </image>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

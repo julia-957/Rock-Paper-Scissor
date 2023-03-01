@@ -4,6 +4,13 @@
 -fx-font-family: 'Roboto Mono', monospace;
 }
 
+.menu-bar{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, #c2c2c2, 20, 0, 0, 5);
+}
+
 .backgroundPane {
     -fx-background-color: white;
 }
