@@ -27,7 +27,15 @@ public class BotAI {
         parentNode.getChildren().add(scissorsNode);
     }
 
-    public Move botBasic(ArrayList<Result> results){
+    public Move botWilhelm(ArrayList<Result> results){
+        if(results.isEmpty())
+            return botRandom();
+        if(results.size()==10)
+            return botBasic(results);
+        else return botMarkovChain(results);
+    }
+
+    private Move botBasic(ArrayList<Result> results){
         if (results.size() > 0)
             result = results.get(results.size()-1);
         if(result == null){
@@ -97,7 +105,7 @@ public class BotAI {
         }
     }
 
-    public Move botMarkovChain(ArrayList<Result> results){
+    private Move botMarkovChain(ArrayList<Result> results){
         markovChain.updateMarkovChain(results);
         Move chosenMove = moves[getRandomNumber()];
         if (results.size() > 0){
