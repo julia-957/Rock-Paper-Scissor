@@ -41,38 +41,19 @@ public class GameStatsController implements Initializable {
     private GameManager gm;
     @FXML
     private AnchorPane graphHolder;
+    private GraphController graphController;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //graphController = new GraphController();
         scores = new Label[][]{{RRscore, RPscore, RSscore}, {PRscore, PPscore, PSscore}, {SRscore, SPscore, SSscore}};
 
         Platform.runLater(() -> {
             SetupTable();
             updateMatrix();
         });
-        Graph<String,String> g = new GraphEdgeList<>();
-        g.insertVertex("A");
-        g.insertVertex("B");
-        g.insertVertex("C");
-        g.insertVertex("D");
 
-        g.insertEdge("A", "B", "1");
-        g.insertEdge("A", "C", "2");
-        g.insertEdge("A", "D", "3");
 
-        g.insertVertex("H");
-        g.insertVertex("I");
-        g.insertVertex("J");
-        g.insertVertex("K");
-
-        g.insertEdge("H", "I", "7");
-        g.insertEdge("H", "J", "8");
-        g.insertEdge("H", "K", "9");
-
-        g.insertEdge("A", "H", "0");
-        SmartPlacementStrategy strategy = new SmartCircularSortedPlacementStrategy();
-        SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, strategy);
-
-        Scene scene = new Scene(graphView, 512, 381);
+        Scene scene = new Scene(graphController.getGraphView(), 512, 381);
 
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle("JavaFXGraph Visualization");
@@ -80,7 +61,8 @@ public class GameStatsController implements Initializable {
         stage.show();
 
         //IMPORTANT - Called after scene is displayed so we can have width and height values
-        graphView.init();
+        //graphController.getGraphView().init();
+        //graphController.getGraphView().update();
     }
     public void setGameManager(GameManager gm){
         this.gm = gm;
@@ -136,5 +118,10 @@ public class GameStatsController implements Initializable {
         if (gm != null)
             table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults()));
         table.scrollToLast();
+        var lastResult = table.getItems().get(table.getItems().size() - 1);
+        if(lastResult.getWinnerPlayer().getPlayerType() == PlayerType.Human)
+            graphController.updateGraph(lastResult.getWinnerMove().name());
+        else
+            graphController.updateGraph(lastResult.getLoserMove().name());
     }
 }
