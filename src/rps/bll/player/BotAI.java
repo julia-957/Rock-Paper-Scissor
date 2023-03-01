@@ -31,15 +31,11 @@ public class BotAI {
         parentNode.getChildren().add(scissorsNode);
     }
 
-    public Move botThreeSequence(ArrayList<Result> results){
-        return Move.Scissor;
-        //TODO add sexy logic
-    }
     public Move botBasic(ArrayList<Result> results){
         if (results.size() > 0)
             result = results.get(results.size()-1);
         if(result == null){
-            return moves[getRandomNumber()];
+            return botRandom();
         }
         if(result.getType() == ResultType.Win) {
          boolean humanWinner = result.getWinnerPlayer().getPlayerType() == PlayerType.Human;
@@ -64,7 +60,7 @@ public class BotAI {
              return Move.Rock;
          }
         }
-     return moves[getRandomNumber()];
+     return null;
     }
 
     public Move botTreePattern(ArrayList<Result> results){
@@ -72,7 +68,7 @@ public class BotAI {
     }
 
 
-    public Move botRandom(){
+    private Move botRandom(){
         return moves[getRandomNumber()];
     }
 
