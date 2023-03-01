@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class MarkovChain {
     private int[][] matrix = new int[3][3];
+    private double[][] probability = new double[][]{{1.0/3,1.0/3,1.0/3},{1.0/3, 1.0/3, 1.0/3},{1.0/3, 1.0/3, 1.0/3}};
     private Result result;
     private Move nextMove;
 
@@ -40,6 +41,22 @@ public class MarkovChain {
                 humanMove = result.getWinnerMove();
 
             matrix[previousMove.ordinal()][humanMove.ordinal()]++;
+
+            for (int i = 0; i < 3; i++){
+                int totalMoves = 0;
+                for (int j = 0; j < 1; j++){
+                    totalMoves += probability[i][j];
+                    //System.out.print(probability[i][j] + " ");
+                }
+                probability[i][0] = 1.0/3;
+                probability[i][1] = 1.0/3;
+                probability[i][2] = 1.0/3;
+                System.out.print(probability[i][0] + " ");
+                System.out.print(probability[i][1] + " ");
+                System.out.print(probability[i][2] + " ");
+                System.out.print("\n");
+            }
+            System.out.println();
         }
     }
 

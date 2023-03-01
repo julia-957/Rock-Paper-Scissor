@@ -1,13 +1,9 @@
 package rps.bll.player;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import rps.bll.game.Move;
 import rps.bll.game.Result;
 import rps.bll.game.ResultType;
 
-import java.io.IOException;
 import java.util.*;
 
 public class BotAI {
@@ -50,7 +46,6 @@ public class BotAI {
              return Move.Scissor;
          }
 
-
          if (result.getLoserMove() == Move.Scissor && result.getLoserPlayer().getPlayerType() == PlayerType.Human) {
              return Move.Paper;
          }
@@ -61,7 +56,6 @@ public class BotAI {
              return Move.Scissor;
          }
         }
-
 
         if(result.getType()== ResultType.Tie) {
          if(result.getWinnerMove() == Move.Rock && result.getWinnerPlayer().getPlayerType() == PlayerType.Human){

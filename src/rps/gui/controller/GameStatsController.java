@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import rps.bll.game.GameManager;
@@ -77,10 +76,10 @@ public class GameStatsController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle("JavaFXGraph Visualization");
         stage.setScene(scene);
-        stage.show();
+        //stage.show();
 
         //IMPORTANT - Called after scene is displayed so we can have width and height values
-        graphView.init();
+        //graphView.init();
     }
     public void setGameManager(GameManager gm){
         this.gm = gm;

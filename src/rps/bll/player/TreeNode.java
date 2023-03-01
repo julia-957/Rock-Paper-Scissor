@@ -49,8 +49,7 @@ public class TreeNode {
     public TreeNode getChild(Move move){
         try {
             return children.stream().filter(m -> m.getMove() == move).findFirst().get();
-        }
-        finally {
+        } finally {
             return null;
         }
     }
