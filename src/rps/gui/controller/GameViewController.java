@@ -204,7 +204,7 @@ public class GameViewController implements Initializable {
                 botWins++;
         }
 
-        double winPercentage = (botWins/gm.getGameState().getRoundNumber())*100;
+        double winPercentage = (botWins/gm.getGameState().getHistoricResults().size())*100;
 
         return (((int) winPercentage) + "%");
     }
@@ -216,7 +216,7 @@ public class GameViewController implements Initializable {
             if(r.getWinnerPlayer().getPlayerType().equals(PlayerType.Human) && r.getType().equals(ResultType.Win))
                 humanWins++;
         }
-        double winPercentage = (humanWins/gm.getGameState().getRoundNumber())*100;
+        double winPercentage = (humanWins/gm.getGameState().getHistoricResults().size())*100;
         
         return (((int) winPercentage) + "%");
     }
@@ -229,7 +229,7 @@ public class GameViewController implements Initializable {
                 ties++;
             }
         }
-        double tiePercentage = (ties/gm.getGameState().getRoundNumber()*100);
+        double tiePercentage = (ties/gm.getGameState().getHistoricResults().size()*100);
         return (((int) tiePercentage) + "%");
     }
 }
