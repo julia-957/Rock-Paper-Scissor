@@ -83,27 +83,25 @@ public class GameViewController implements Initializable {
     @FXML
     private void clickRock(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Rock);
-        updateLabels(result);
-        updatePercentages();
-        callUpdateMarkov();
+        updateData(result);
     }
 
     @FXML
     private void clickPaper(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Paper);
-        updateLabels(result);
-        updatePercentages();
-        callUpdateMarkov();
+        updateData(result);
     }
 
     @FXML
     private void clickScissors(ActionEvent actionEvent){
         Result result = gm.playRound(Move.Scissor);
-        updateLabels(result);
+        updateData(result);
+    }
+    private void updateData(Result res){
+        updateLabels(res);
         updatePercentages();
         callUpdateMarkov();
     }
-
     @FXML
     private void clickMainMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
