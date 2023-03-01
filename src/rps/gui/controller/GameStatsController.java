@@ -44,25 +44,12 @@ public class GameStatsController implements Initializable {
     private GraphController graphController;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //graphController = new GraphController();
         scores = new Label[][]{{RRscore, RPscore, RSscore}, {PRscore, PPscore, PSscore}, {SRscore, SPscore, SSscore}};
 
         Platform.runLater(() -> {
             SetupTable();
             updateMatrix();
         });
-
-
-        Scene scene = new Scene(graphController.getGraphView(), 512, 381);
-
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle("JavaFXGraph Visualization");
-        stage.setScene(scene);
-        stage.show();
-
-        //IMPORTANT - Called after scene is displayed so we can have width and height values
-        //graphController.getGraphView().init();
-        //graphController.getGraphView().update();
     }
     public void setGameManager(GameManager gm){
         this.gm = gm;
