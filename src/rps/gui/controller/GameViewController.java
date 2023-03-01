@@ -46,16 +46,16 @@ public class GameViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bot = new Player(getRandomBotName(), PlayerType.AI);
+        bot = new Player("Wi1h31m", PlayerType.AI);
         labelAIName.setText(bot.getPlayerName() + "'s move:");
 
         labelAIMove.setText("");
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
-        labelGamesWon.setText("0%");
-        labelTies.setText("0%");
-        labelBotWins.setText("0%");
+        labelGamesWon.setText("0");
+        labelTies.setText("0 %");
+        labelBotWins.setText("0 %");
     }
 
     private void bindSizes(){
@@ -145,6 +145,8 @@ public class GameViewController implements Initializable {
         return botNames[randomNumber];
     }
 
+
+
     private void updateLabels(Result result){
         if (result.getType() == ResultType.Tie){
             labelWinner.setText("Tie");
@@ -206,7 +208,7 @@ public class GameViewController implements Initializable {
 
         double winPercentage = (botWins/gm.getGameState().getHistoricResults().size())*100;
 
-        return (((int) winPercentage) + "%");
+        return (((int) winPercentage) + " %");
     }
 
     private String getHumanWinPercentage() {
@@ -218,7 +220,7 @@ public class GameViewController implements Initializable {
         }
         double winPercentage = (humanWins/gm.getGameState().getHistoricResults().size())*100;
         
-        return (((int) winPercentage) + "%");
+        return (((int) winPercentage) + "");
     }
 
     private String getTiePercentage(){
@@ -230,6 +232,6 @@ public class GameViewController implements Initializable {
             }
         }
         double tiePercentage = (ties/gm.getGameState().getHistoricResults().size()*100);
-        return (((int) tiePercentage) + "%");
+        return (((int) tiePercentage) + " %");
     }
 }
