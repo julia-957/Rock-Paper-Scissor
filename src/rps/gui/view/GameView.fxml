@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="backgroundPane" stylesheets="@bootificashun.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="backgroundPane" stylesheets="@bootificashun.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.GameViewController">
    <center>
       <VBox fx:id="mainContainer" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -58,9 +58,9 @@
                </children></HBox>
             <HBox fx:id="playButtonsHBox" alignment="CENTER" spacing="30.0">
                <children>
-                  <MFXButton onAction="#clickRock" prefWidth="70.0" text="Rock" />
-                  <MFXButton onAction="#clickPaper" prefWidth="70.0" text="Paper" />
-                  <MFXButton onAction="#clickScissors" prefWidth="70.0" text="Scissors" />
+                  <MFXButton onAction="#clickRock" prefWidth="80.0" text="Rock" />
+                  <MFXButton onAction="#clickPaper" prefWidth="80.0" text="Paper" />
+                  <MFXButton onAction="#clickScissors" prefWidth="80.0" text="Scissors" />
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />
@@ -89,8 +89,14 @@
                   <Label fx:id="labelGameRound" styleClass="labelResult" text="0" />
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
-                        <Label styleClass="labelTitle" text="Human wins:" textAlignment="CENTER" wrapText="true" />
-                        <Label fx:id="labelGamesWon" styleClass="labelResult" text="0" />
+                        <Label styleClass="labelTitle" text="Your/Bot wins:" textAlignment="CENTER" wrapText="true" />
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="102.0">
+                           <children>
+                              <Label fx:id="labelGamesWon" styleClass="labelResult" text="0" />
+                              <Label layoutX="61.0" layoutY="10.0" styleClass="labelResult" text="/" />
+                              <Label fx:id="labelBotWins" styleClass="labelResult" text="0" />
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets left="5.0" right="5.0" />
@@ -99,7 +105,6 @@
                   <VBox alignment="CENTER" layoutX="15.0" layoutY="88.0" spacing="5.0">
                      <children>
                         <Label styleClass="labelTitle" text="Bot wins:" textAlignment="CENTER" wrapText="true" />
-                        <Label fx:id="labelBotWins" styleClass="labelResult" text="0" />
                      </children>
                      <padding>
                         <Insets left="5.0" right="5.0" />
@@ -121,9 +126,9 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="SOMETIMES">
                <children>
-                  <MFXButton onAction="#clickRestart" prefWidth="80.0" text="Restart" />
-                  <MFXButton onAction="#clickStats" prefWidth="80.0" text="Stats" />
-                  <MFXButton onAction="#clickMainMenu" prefWidth="80.0" text="Main Menu" />
+                  <MFXButton onAction="#clickRestart" prefWidth="90.0" text="Restart" />
+                  <MFXButton onAction="#clickStats" prefWidth="90.0" text="Stats" />
+                  <MFXButton onAction="#clickMainMenu" prefWidth="90.0" text="Main Menu" />
                </children>
                <padding>
                   <Insets bottom="10.0" />
