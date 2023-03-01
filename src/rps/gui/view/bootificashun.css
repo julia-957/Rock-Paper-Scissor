@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
 * {
--fx-font-family: "Courier New";
+-fx-font-family: 'Roboto Mono', monospace;
 }
 
 .backgroundPane {
