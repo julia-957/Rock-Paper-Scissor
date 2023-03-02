@@ -111,16 +111,16 @@ public class GameStatsController implements Initializable {
             }
             //tree.getRoot().addChild(move, tree.getMaxDepth());
             var output = "";
-            System.out.println("GameStatsController.updateMatrix(): " + tree.getRoot().getChildren().size());
+            //System.out.println("GameStatsController.updateMatrix(): " + tree.getRoot().getChildren().size());
             for (TreeNode node : tree.getRoot().getChildren()) {
                 output += node.getMove() + ": " + node.getUsedCounter()+ " | ";
             }
-            System.out.println(output);
+            //System.out.println(output);
             var nodeOutput = "";
             for (TreeNode node : currentNodes) {
                 nodeOutput += node.getMove() + ": " + node.getUsedCounter()+ " | ";
             }
-            System.out.println(nodeOutput);
+            //System.out.println(nodeOutput);
         }
     }
 }

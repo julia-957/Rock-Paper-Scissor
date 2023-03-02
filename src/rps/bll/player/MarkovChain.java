@@ -4,73 +4,50 @@ import rps.bll.game.Move;
 import rps.bll.game.Result;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MarkovChain {
     private int[][] matrix = new int[3][3];
-    private double[][] probability = new double[][]{{1.0/3,1.0/3,1.0/3},{1.0/3, 1.0/3, 1.0/3},{1.0/3, 1.0/3, 1.0/3}};
-    private double[] predicted = new double[3];
     private Result result;
-    private int rock = 1;
-    private int paper = 2;
-    private int scissors = 3;
-    private Move computerMove, humanMove, humanPreviousMove;
-
-    public MarkovChain(){
-        //matrix [humanMove][botMove]
-        matrix[rock-1][rock-1] = 0;
-        matrix[rock-1][paper-1] = 1;
-        matrix[rock-1][scissors-1] = -1;
-        matrix[paper-1][rock-1] = -1;
-        matrix[paper-1][paper-1] = 0;
-        matrix[paper-1][scissors-1] = 1;
-        matrix[scissors-1][rock-1] = 1;
-        matrix[scissors-1][paper-1] = -1;
-        matrix[scissors-1][scissors-1] = 0;
-    }
+    private Move nextMove;
+    private int counter;
 
     public Move getNextMove(ArrayList<Result> results){
+        counter++;
         result = results.get(results.size()-1);
-        Result prevResult = results.get(results.size()-2);
-
-        humanMove = result.getLoserMove();
+        Move humanMove = result.getLoserMove();
         if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
             humanMove = result.getWinnerMove();
 
-        humanPreviousMove = result.getLoserMove();
-        if (prevResult.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-            humanPreviousMove = result.getWinnerMove();
+        int nextIndex = 0;
+        for (int i =0; i < Move.values().length-1; i++){
+            int prevIndex = humanMove.ordinal();
 
-        // update trans
-        int humanMoveIndex = humanMove.ordinal();
-        int previousHumanMoveIndex = humanPreviousMove.ordinal();
-        predicted[0] = matrix[humanMoveIndex][0] * probability[previousHumanMoveIndex][0];
-        predicted[1] = matrix[humanMoveIndex][1] * probability[previousHumanMoveIndex][1];
-        predicted[2] = matrix[humanMoveIndex][2] * probability[previousHumanMoveIndex][2];
-
-        int computerMoveIndex = 0;
-        for ( int i = 1; i < predicted.length; i++ ) {
-            if (predicted[i] > predicted[computerMoveIndex]) computerMoveIndex = i;
+            if (matrix[prevIndex][i] > matrix[prevIndex][nextIndex])
+                nextIndex = i;
         }
-
-        computerMove = Move.values()[computerMoveIndex];
-        probability[previousHumanMoveIndex][computerMoveIndex] += 1.0;
-        probability[previousHumanMoveIndex] = normalize(probability[previousHumanMoveIndex]);
-
-        return computerMove;
+        nextMove = Move.values()[nextIndex];
+        return nextMove;
     }
 
-    public double[][] getMatrix() {
-        return probability;
+    public void updateMarkovChain(ArrayList<Result> results) {
+        if (counter % 20 == 0)
+            matrix = new int[3][3];
+        Result previous = results.get(results.size() - 2);
+        Move previousMove = getHumanMove(previous);
+        result = results.get(results.size() - 1);
+        Move humanMove = getHumanMove(result);
+
+        matrix[previousMove.ordinal()][humanMove.ordinal()]++;
     }
 
-    private double[] normalize(double[] array) {
-        double sum = Arrays.stream(array).sum();
-        System.out.println(sum);
-        for (int i = 0; i < array.length; i++) {
-            array[i] = array[i] / sum;
-            System.out.println(array[i]);
-        }
-        return array;
+    public int[][] getMatrix() {
+        return matrix;
+    }
+
+    private Move getHumanMove(Result result){
+        Move humanMove = result.getLoserMove();
+        if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
+            humanMove = result.getWinnerMove();
+        return humanMove;
     }
 }

@@ -1,9 +1,13 @@
 package rps.bll.player;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import rps.bll.game.Move;
 import rps.bll.game.Result;
 import rps.bll.game.ResultType;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BotAI {
@@ -28,49 +32,40 @@ public class BotAI {
     }
 
     public Move botWilhelm(ArrayList<Result> results){
-        if(results.isEmpty())
-            return botRandom();
-        if(results.size()>=2)
-            return botMarkovChain(results);
-        else return botBasic(results);
+        Move chosenMove = botRandom();
+        if (results.size() > 0 && results.size() < 3)
+            chosenMove = botBasic(results);
+        else if (results.size() > 3) {
+            if (getHumanMove(results.get(results.size()-3)) == getHumanMove(results.get(results.size()-2)) &&
+                        getHumanMove(results.get(results.size()-2)) == getHumanMove(results.get(results.size()-1)))
+                    chosenMove = returnCounterMove(getHumanMove(results.get(results.size()-1)));
+            else
+                chosenMove = botMarkovChain(results);
+            }
+        return chosenMove;
     }
 
     private Move botBasic(ArrayList<Result> results){
-        if (results.size() > 0)
-            result = results.get(results.size()-1);
-        if(result == null){
-            return botRandom();
-        }
+        result = results.get(results.size()-1);
+
+        Move chosenMove = null;
         if(result.getType() == ResultType.Win) {
          boolean humanWinner = result.getWinnerPlayer().getPlayerType() == PlayerType.Human;
          if ((result.getWinnerMove() == Move.Rock && humanWinner) || (result.getLoserMove() == Move.Scissor && !humanWinner)){
-             return Move.Paper;
+             chosenMove = Move.Paper;
          }
          if ((result.getWinnerMove() == Move.Scissor && humanWinner) || (result.getLoserMove() == Move.Paper && !humanWinner)){
-             return Move.Rock;
+             chosenMove = Move.Rock;
          }
          if ((result.getWinnerMove() == Move.Paper && humanWinner) || (result.getLoserMove() == Move.Rock && !humanWinner)){
-             return Move.Scissor;
+             chosenMove = Move.Scissor;
          }
         }
-        if(result.getType()== ResultType.Tie){
-         if(result.getWinnerMove() == Move.Rock){
-             return Move.Scissor;
-         }
-         if(result.getWinnerMove() == Move.Scissor){
-             return Move.Paper;
-         }
-         if(result.getWinnerMove() == Move.Paper){
-             return Move.Rock;
-         }
-        }
-     return null;
-    }
 
-    public Move botTreePattern(ArrayList<Result> results){
-        return Move.Paper;
+        if(result.getType()== ResultType.Tie)
+            chosenMove = returnCounterMove(result.getWinnerMove());
+     return chosenMove;
     }
-
 
     private Move botRandom(){
         return moves[getRandomNumber()];
@@ -81,35 +76,28 @@ public class BotAI {
         return random.nextInt(3);
     }
 
-    public void updateTree(ArrayList<Result> results) {
-        int amount = Math.min(results.size(), 7);
-        if (amount > 0) {
-            result = results.get(results.size() - 1);
-
-            //Determine which move was human
-            Move humanMove = result.getLoserMove();
-            if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-                humanMove = result.getWinnerMove();
-
-            TreeNode parent = mainNodes.get(humanMove);    //Get the main node
-            for (int i = 1; i < amount + 1; i++) {
-                humanMove = result.getLoserMove();
-                if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-                    humanMove = result.getWinnerMove();
-
-                if (parent.getChild(humanMove) == null)
-                    parent.getChildren().add(new TreeNode(humanMove, i + 1, 1));
-                else
-                    parent = parent.getChild(humanMove);
-            }
-        }
-    }
-
     private Move botMarkovChain(ArrayList<Result> results){
-        return markovChain.getNextMove(results);
+        markovChain.updateMarkovChain(results);
+        return returnCounterMove(markovChain.getNextMove(results));
     }
 
-    public double[][] getMarkovMatrix(){
+    public int[][] getMarkovMatrix(){
         return markovChain.getMatrix();
+    }
+
+    private Move getHumanMove(Result result){
+        Move humanMove = result.getLoserMove();
+        if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
+            humanMove = result.getWinnerMove();
+        return humanMove;
+    }
+
+    private Move returnCounterMove(Move move){
+        if (move == Move.Rock)
+            return Move.Paper;
+        else if (move == Move.Paper)
+            return Move.Scissor;
+        else
+            return Move.Rock;
     }
 }

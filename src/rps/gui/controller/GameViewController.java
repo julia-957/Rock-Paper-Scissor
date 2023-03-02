@@ -1,7 +1,10 @@
 package rps.gui.controller;
 
 // Java imports
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,6 +24,7 @@ import rps.bll.player.IPlayer;
 import rps.bll.player.Player;
 import rps.bll.player.PlayerType;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,6 +69,16 @@ public class GameViewController implements Initializable {
         labelGamesWon.setText("0");
         labelTies.setText("0 %");
         labelBotWins.setText("0 %");
+
+        Platform.runLater(() -> {
+            scene.setOnKeyPressed(event -> {
+                switch (event.getCode()) {
+                    case R -> clickRock(event);
+                    case P -> clickPaper(event);
+                    case S -> clickScissors(event);
+                }
+            });
+        });
     }
 
     private void bindSizes(){
@@ -87,20 +102,21 @@ public class GameViewController implements Initializable {
     }
 
     @FXML
-    private void clickRock(ActionEvent actionEvent){
+    private void clickRock(Event actionEvent){
         playRound(Move.Rock);
         humanMove.setImage(humanRock);
     }
     @FXML
-    private void clickPaper(ActionEvent actionEvent){
+    private void clickPaper(Event actionEvent){
         playRound(Move.Paper);
         humanMove.setImage(humanPaper);
     }
     @FXML
-    private void clickScissors(ActionEvent actionEvent){
+    private void clickScissors(Event actionEvent){
         playRound(Move.Scissor);
         humanMove.setImage(humanScissors);
     }
+
     private void playRound(Move move){
         Result res = gm.playRound(move);
         updateLabels(res);
@@ -108,6 +124,7 @@ public class GameViewController implements Initializable {
         callUpdateMarkov();
         setBotMoveImage();
     }
+
     @FXML
     private void clickMainMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -122,12 +139,14 @@ public class GameViewController implements Initializable {
 
     @FXML
     private void clickRestart(ActionEvent actionEvent) {
+        bot = new Player("Wi1h31m", PlayerType.AI);
         gm = new GameManager(human, bot);
         labelAIMove.setText("");
         labelYourMove.setText("");
         labelWinner.setText("");
         labelGameRound.setText("0");
         callUpdateMarkov();
+        updatePercentages();
     }
 
     public void setHuman(IPlayer human) {
@@ -181,7 +200,6 @@ public class GameViewController implements Initializable {
         Parent root = loader.load();
         gameStatsController = loader.getController();
         gameStatsController.setGameManager(gm);
-        //System.out.println("GameViewController: " + gm);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
