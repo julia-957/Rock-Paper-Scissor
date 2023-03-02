@@ -23,6 +23,7 @@ import rps.bll.player.PlayerType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,12 @@ public class GameViewController implements Initializable {
     @FXML private VBox humanMoveVbox, botMoveVBox, menuBarVBox, mainContainer;
     @FXML private HBox centerGraphicHBox, statisticsHBox, playButtonsHBox;
     @FXML private Scene scene;
-    private final Image rockSymbol = new Image("/rps/gui/view/icons/robotWithBubble.png");
+    private final Image humanRock = new Image("/rps/gui/view/icons/Rock.png");
+    private final Image humanPaper = new Image("/rps/gui/view/icons/Paper.png");
+    private final Image humanScissors = new Image("/rps/gui/view/icons/Scissors.png");
+    private final Image botRock = new Image("/rps/gui/view/icons/RockRobot.png");
+    private final Image botPaper = new Image("/rps/gui/view/icons/PaperRobot.png");
+    private final Image botScissors = new Image("/rps/gui/view/icons/ScissorsRobot.png");
     private final Image wilhelm = new Image("/rps/gui/view/icons/wilhelm.png");
     private IPlayer human;
     private IPlayer bot;
@@ -70,33 +76,37 @@ public class GameViewController implements Initializable {
 
         humanMove.fitWidthProperty().bind(humanMoveVbox.prefWidthProperty());
         humanMove.fitHeightProperty().bind(humanMoveVbox.prefHeightProperty());
-        humanMove.setImage(rockSymbol);
+        humanMove.setImage(null);
 
         botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
         botMoveVBox.prefWidthProperty().bind((centerGraphicHBox.prefHeightProperty()));
 
         botMove.fitWidthProperty().bind(humanMove.fitWidthProperty());
         botMove.fitHeightProperty().bind(humanMove.fitHeightProperty());
-        botMove.setImage(rockSymbol);
+        botMove.setImage(null);
     }
 
     @FXML
     private void clickRock(ActionEvent actionEvent){
         playRound(Move.Rock);
+        humanMove.setImage(humanRock);
     }
     @FXML
     private void clickPaper(ActionEvent actionEvent){
         playRound(Move.Paper);
+        humanMove.setImage(humanPaper);
     }
     @FXML
     private void clickScissors(ActionEvent actionEvent){
         playRound(Move.Scissor);
+        humanMove.setImage(humanScissors);
     }
     private void playRound(Move move){
         Result res = gm.playRound(move);
         updateLabels(res);
         updatePercentages();
         callUpdateMarkov();
+        setBotMoveImage();
     }
     @FXML
     private void clickMainMenu(ActionEvent actionEvent) throws IOException {
@@ -229,5 +239,22 @@ public class GameViewController implements Initializable {
         }
         double tiePercentage = (ties/gm.getGameState().getHistoricResults().size()*100);
         return (((int) tiePercentage) + " %");
+    }
+
+    public void setBotMoveImage(){
+        List<Result> results = (List<Result>) gm.getGameState().getHistoricResults();
+        Result result = results.get(results.size()-1);
+        Move move = null;
+        if (result.getWinnerPlayer().getPlayerType() == PlayerType.AI)
+            move = result.getWinnerMove();
+        if (result.getLoserPlayer().getPlayerType() == PlayerType.AI)
+            move = result.getLoserMove();
+
+        if(move == Move.Rock)
+            botMove.setImage(botRock);
+        if(move == Move.Paper)
+            botMove.setImage(botPaper);
+        if(move == Move.Scissor)
+            botMove.setImage(botScissors);
     }
 }

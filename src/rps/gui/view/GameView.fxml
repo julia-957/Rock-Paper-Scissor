@@ -65,10 +65,10 @@
                   <MFXButton onAction="#clickScissors" prefWidth="80.0" text="Scissors" />
                </children>
                <padding>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="25.0" top="10.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
          </children>
