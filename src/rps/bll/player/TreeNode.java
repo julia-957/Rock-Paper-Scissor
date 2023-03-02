@@ -47,11 +47,19 @@ public class TreeNode {
     }
 
     public TreeNode getChild(Move move){
-        try {
-            return children.stream().filter(m -> m.getMove() == move).findFirst().get();
-        }
-        finally {
+        return children.stream().filter(m -> m.getMove() == move).findFirst().orElse(null);
+    }
+    public TreeNode addChild(Move move, int level){
+        if (this.level == level)
             return null;
+        var child = getChild(move);
+        if(child != null){
+            child = getChild(move);
+            child.setUsedCounter(child.getUsedCounter() + 1);
+            return child;
         }
+        child = new TreeNode(move, this.level + 1, 1);
+        children.add(child);
+        return child;
     }
 }

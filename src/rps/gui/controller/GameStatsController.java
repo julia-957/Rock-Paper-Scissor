@@ -20,15 +20,12 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import rps.bll.game.GameManager;
+import rps.bll.game.Move;
 import rps.bll.game.Result;
-import rps.bll.player.IPlayer;
-import rps.bll.player.Player;
-import rps.bll.player.PlayerType;
+import rps.bll.player.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameStatsController implements Initializable {
     @FXML
@@ -39,13 +36,13 @@ public class GameStatsController implements Initializable {
     private Label RRscore, RPscore, RSscore, PRscore, PPscore, PSscore, SRscore, SPscore, SSscore;
     private Label[][] scores;
     private GameManager gm;
-    @FXML
-    private AnchorPane graphHolder;
-    private GraphController graphController;
+    private Tree tree;
+    private List<TreeNode> currentNodes = new ArrayList<>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scores = new Label[][]{{RRscore, RPscore, RSscore}, {PRscore, PPscore, PSscore}, {SRscore, SPscore, SSscore}};
-
+        tree = new Tree(3);
+        currentNodes.add(tree.getRoot());
         Platform.runLater(() -> {
             SetupTable();
             updateMatrix();
@@ -105,10 +102,32 @@ public class GameStatsController implements Initializable {
         if (gm != null)
             table.setItems(FXCollections.observableArrayList(gm.getGameState().getHistoricResults()));
         table.scrollToLast();
-        var lastResult = table.getItems().get(table.getItems().size() - 1);
-        if(lastResult.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-            graphController.updateGraph(lastResult.getWinnerMove().name());
-        else
-            graphController.updateGraph(lastResult.getLoserMove().name());
+
+        if (results.size() > 0) {
+            Result lastResult = results.get(results.size() - 1);
+            Move move;
+            if (lastResult.getWinnerPlayer().getPlayerType() == PlayerType.Human) {
+                move = lastResult.getWinnerMove();
+            } else {
+                move = lastResult.getLoserMove();
+            }
+
+            for (TreeNode node : currentNodes) {
+                var b = node.addChild(move, tree.getMaxDepth());
+                node = b;
+            }
+            //tree.getRoot().addChild(move, tree.getMaxDepth());
+            var output = "";
+            System.out.println("GameStatsController.updateMatrix(): " + tree.getRoot().getChildren().size());
+            for (TreeNode node : tree.getRoot().getChildren()) {
+                output += node.getMove() + ": " + node.getUsedCounter()+ " | ";
+            }
+            System.out.println(output);
+            var nodeOutput = "";
+            for (TreeNode node : currentNodes) {
+                nodeOutput += node.getMove() + ": " + node.getUsedCounter()+ " | ";
+            }
+            System.out.println(nodeOutput);
+        }
     }
 }
