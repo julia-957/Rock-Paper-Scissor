@@ -101,6 +101,7 @@ public class GameViewController implements Initializable {
         playRound(Move.Scissor);
         humanMove.setImage(humanScissors);
     }
+
     private void playRound(Move move){
         Result res = gm.playRound(move);
         updateLabels(res);
@@ -108,6 +109,7 @@ public class GameViewController implements Initializable {
         callUpdateMarkov();
         setBotMoveImage();
     }
+    
     @FXML
     private void clickMainMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -128,6 +130,7 @@ public class GameViewController implements Initializable {
         labelWinner.setText("");
         labelGameRound.setText("0");
         callUpdateMarkov();
+        updatePercentages();
     }
 
     public void setHuman(IPlayer human) {

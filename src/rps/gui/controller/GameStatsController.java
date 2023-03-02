@@ -1,10 +1,5 @@
 package rps.gui.controller;
 
-import com.brunomnsilva.smartgraph.graph.Graph;
-import com.brunomnsilva.smartgraph.graph.GraphEdgeList;
-import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
-import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
-import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -12,13 +7,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import rps.bll.game.GameManager;
 import rps.bll.game.Move;
 import rps.bll.game.Result;
@@ -118,16 +108,16 @@ public class GameStatsController implements Initializable {
             }
             //tree.getRoot().addChild(move, tree.getMaxDepth());
             var output = "";
-            System.out.println("GameStatsController.updateMatrix(): " + tree.getRoot().getChildren().size());
+            //System.out.println("GameStatsController.updateMatrix(): " + tree.getRoot().getChildren().size());
             for (TreeNode node : tree.getRoot().getChildren()) {
                 output += node.getMove() + ": " + node.getUsedCounter()+ " | ";
             }
-            System.out.println(output);
+            //System.out.println(output);
             var nodeOutput = "";
             for (TreeNode node : currentNodes) {
                 nodeOutput += node.getMove() + ": " + node.getUsedCounter()+ " | ";
             }
-            System.out.println(nodeOutput);
+            //System.out.println(nodeOutput);
         }
     }
 }
