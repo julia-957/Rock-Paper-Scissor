@@ -1,10 +1,5 @@
 package rps.gui.controller;
 
-import com.brunomnsilva.smartgraph.graph.Graph;
-import com.brunomnsilva.smartgraph.graph.GraphEdgeList;
-import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
-import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
-import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -12,12 +7,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import rps.bll.game.GameManager;
 import rps.bll.game.Move;
 import rps.bll.game.Result;
@@ -90,7 +81,7 @@ public class GameStatsController implements Initializable {
         ArrayList<Result> results = (ArrayList<Result>) gm.getGameState().getHistoricResults();
         if (results.size() > 0) {
             Player bot = (Player) ((results.get(results.size() - 1).getWinnerPlayer().getPlayerType() == PlayerType.AI) ? results.get(results.size() - 1).getWinnerPlayer() : results.get(results.size() - 1).getLoserPlayer());
-            int[][] matrix = bot.getBotAI().getMarkovMatrix();
+            double[][] matrix = bot.getBotAI().getMarkovMatrix();
 
             for (int i = 0; i < 3; i++) { //column
                 for (int j = 0; j < 3; j++) {

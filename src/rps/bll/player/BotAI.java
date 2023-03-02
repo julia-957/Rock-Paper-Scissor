@@ -30,9 +30,9 @@ public class BotAI {
     public Move botWilhelm(ArrayList<Result> results){
         if(results.isEmpty())
             return botRandom();
-        if(results.size()==10)
-            return botBasic(results);
-        else return botMarkovChain(results);
+        if(results.size()>=2)
+            return botMarkovChain(results);
+        else return botBasic(results);
     }
 
     private Move botBasic(ArrayList<Result> results){
@@ -106,7 +106,6 @@ public class BotAI {
     }
 
     private Move botMarkovChain(ArrayList<Result> results){
-        markovChain.updateMarkovChain(results);
         Move chosenMove = moves[getRandomNumber()];
         if (results.size() > 0){
             Move predicted = markovChain.getNextMove(results);
@@ -120,11 +119,7 @@ public class BotAI {
         return chosenMove;
     }
 
-    public int[][] getMarkovMatrix(){
+    public double[][] getMarkovMatrix(){
         return markovChain.getMatrix();
-    }
-
-    public void updateMarkovChain(ArrayList<Result> results){
-        markovChain.updateMarkovChain(results);
     }
 }
