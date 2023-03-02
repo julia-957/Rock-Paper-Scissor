@@ -1,7 +1,10 @@
 package rps.gui.controller;
 
 // Java imports
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,6 +24,7 @@ import rps.bll.player.IPlayer;
 import rps.bll.player.Player;
 import rps.bll.player.PlayerType;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,6 +69,25 @@ public class GameViewController implements Initializable {
         labelGamesWon.setText("0");
         labelTies.setText("0 %");
         labelBotWins.setText("0 %");
+
+        Platform.runLater(() -> {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    switch (event.getCode()){
+                        case R:
+                            clickRock(event);
+                            break;
+                        case P:
+                            clickPaper(event);
+                            break;
+                        case S:
+                            clickScissors(event);
+                            break;
+                    }
+                }
+            });
+        });
     }
 
     private void bindSizes(){
@@ -87,17 +111,17 @@ public class GameViewController implements Initializable {
     }
 
     @FXML
-    private void clickRock(ActionEvent actionEvent){
+    private void clickRock(Event actionEvent){
         playRound(Move.Rock);
         humanMove.setImage(humanRock);
     }
     @FXML
-    private void clickPaper(ActionEvent actionEvent){
+    private void clickPaper(Event actionEvent){
         playRound(Move.Paper);
         humanMove.setImage(humanPaper);
     }
     @FXML
-    private void clickScissors(ActionEvent actionEvent){
+    private void clickScissors(Event actionEvent){
         playRound(Move.Scissor);
         humanMove.setImage(humanScissors);
     }
