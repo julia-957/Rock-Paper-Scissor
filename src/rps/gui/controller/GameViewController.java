@@ -109,7 +109,7 @@ public class GameViewController implements Initializable {
         callUpdateMarkov();
         setBotMoveImage();
     }
-    
+
     @FXML
     private void clickMainMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -124,6 +124,7 @@ public class GameViewController implements Initializable {
 
     @FXML
     private void clickRestart(ActionEvent actionEvent) {
+        bot = new Player("Wi1h31m", PlayerType.AI);
         gm = new GameManager(human, bot);
         labelAIMove.setText("");
         labelYourMove.setText("");

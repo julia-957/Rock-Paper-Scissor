@@ -4,14 +4,15 @@ import rps.bll.game.Move;
 import rps.bll.game.Result;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MarkovChain {
     private int[][] matrix = new int[3][3];
     private Result result;
     private Move nextMove;
+    private int counter;
 
     public Move getNextMove(ArrayList<Result> results){
+        counter++;
         result = results.get(results.size()-1);
         Move humanMove = result.getLoserMove();
         if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
@@ -29,6 +30,8 @@ public class MarkovChain {
     }
 
     public void updateMarkovChain(ArrayList<Result> results) {
+        if (counter % 20 == 0)
+            matrix = new int[3][3];
         Result previous = results.get(results.size() - 2);
         Move previousMove = getHumanMove(previous);
         result = results.get(results.size() - 1);

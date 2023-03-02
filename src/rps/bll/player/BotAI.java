@@ -37,9 +37,8 @@ public class BotAI {
             chosenMove = botBasic(results);
         else if (results.size() > 3) {
             if (getHumanMove(results.get(results.size()-3)) == getHumanMove(results.get(results.size()-2)) &&
-                        getHumanMove(results.get(results.size()-2)) == getHumanMove(results.get(results.size()-1))){
-                    chosenMove = botBasic(results);
-                }
+                        getHumanMove(results.get(results.size()-2)) == getHumanMove(results.get(results.size()-1)))
+                    chosenMove = returnCounterMove(getHumanMove(results.get(results.size()-1)));
             else
                 chosenMove = botMarkovChain(results);
             }
@@ -50,29 +49,23 @@ public class BotAI {
         System.out.println("Bot basic!");
         result = results.get(results.size()-1);
 
-        if (results.size() > 3) {
-            if (getHumanMove(results.get(results.size()-3)) == getHumanMove(results.get(results.size()-2)) &&
-                    getHumanMove(results.get(results.size()-2)) == getHumanMove(results.get(results.size()-1))){
-                return returnCounterMove(getHumanMove(results.get(results.size()-1)));
-            }
-        }
-
+        Move chosenMove = null;
         if(result.getType() == ResultType.Win) {
          boolean humanWinner = result.getWinnerPlayer().getPlayerType() == PlayerType.Human;
          if ((result.getWinnerMove() == Move.Rock && humanWinner) || (result.getLoserMove() == Move.Scissor && !humanWinner)){
-             return Move.Paper;
+             chosenMove = Move.Paper;
          }
          if ((result.getWinnerMove() == Move.Scissor && humanWinner) || (result.getLoserMove() == Move.Paper && !humanWinner)){
-             return Move.Rock;
+             chosenMove = Move.Rock;
          }
          if ((result.getWinnerMove() == Move.Paper && humanWinner) || (result.getLoserMove() == Move.Rock && !humanWinner)){
-             return Move.Scissor;
+             chosenMove = Move.Scissor;
          }
         }
 
         if(result.getType()== ResultType.Tie)
-         return returnCounterMove(result.getWinnerMove());
-     return null;
+            chosenMove = returnCounterMove(result.getWinnerMove());
+     return chosenMove;
     }
 
     private Move botRandom(){
@@ -86,9 +79,13 @@ public class BotAI {
 
 
     private Move botMarkovChain(ArrayList<Result> results){
-        System.out.println("Bot Markov!");
         markovChain.updateMarkovChain(results);
-        return returnCounterMove(markovChain.getNextMove(results));
+        Move chosenMove = returnCounterMove(markovChain.getNextMove(results));
+        return chosenMove;
+    }
+
+    private Move botSpam(ArrayList<Result> results){
+        return returnCounterMove(getHumanMove(results.get(results.size()-1)));
     }
 
     public int[][] getMarkovMatrix(){
