@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -45,12 +44,12 @@
             </HBox>
             <HBox fx:id="centerGraphicHBox" VBox.vgrow="SOMETIMES">
                <children>
-                  <VBox fx:id="humanMoveVbox" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="humanMoveVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="humanMove" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </VBox>
-                  <VBox fx:id="botMoveVBox" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="botMoveVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="botMove" pickOnBounds="true" preserveRatio="true" />
                      </children>
