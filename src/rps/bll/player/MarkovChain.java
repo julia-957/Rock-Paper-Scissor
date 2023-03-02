@@ -50,19 +50,13 @@ public class MarkovChain {
 
         int computerMoveIndex = 0;
         for ( int i = 1; i < predicted.length; i++ ) {
-            if ( predicted[i] > predicted[computerMoveIndex] ) computerMoveIndex = i;
+            if (predicted[i] > predicted[computerMoveIndex]) computerMoveIndex = i;
         }
+
         computerMove = Move.values()[computerMoveIndex];
         probability[previousHumanMoveIndex][computerMoveIndex] += 1.0;
         probability[previousHumanMoveIndex] = normalize(probability[previousHumanMoveIndex]);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(matrix[i][j]+" ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println();
         return computerMove;
     }
 
@@ -72,8 +66,10 @@ public class MarkovChain {
 
     private double[] normalize(double[] array) {
         double sum = Arrays.stream(array).sum();
+        System.out.println(sum);
         for (int i = 0; i < array.length; i++) {
             array[i] = array[i] / sum;
+            System.out.println(array[i]);
         }
         return array;
     }

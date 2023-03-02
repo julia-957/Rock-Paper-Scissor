@@ -106,17 +106,7 @@ public class BotAI {
     }
 
     private Move botMarkovChain(ArrayList<Result> results){
-        Move chosenMove = moves[getRandomNumber()];
-        if (results.size() > 0){
-            Move predicted = markovChain.getNextMove(results);
-            if (predicted == Move.Paper)
-                chosenMove = Move.Scissor;
-            else if (predicted == Move.Rock)
-                chosenMove = Move.Paper;
-            else
-                chosenMove = Move.Rock;
-        }
-        return chosenMove;
+        return markovChain.getNextMove(results);
     }
 
     public double[][] getMarkovMatrix(){
