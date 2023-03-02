@@ -4,6 +4,7 @@ import rps.bll.game.Move;
 import rps.bll.game.Result;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MarkovChain {
     private int[][] matrix = new int[3][3];
@@ -28,22 +29,22 @@ public class MarkovChain {
     }
 
     public void updateMarkovChain(ArrayList<Result> results) {
-        if (results.size() > 1) {
-            Result previous = results.get(results.size() - 2);
-            Move previousMove = previous.getLoserMove();
-            if (previous.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-                previousMove = previous.getWinnerMove();
+        Result previous = results.get(results.size() - 2);
+        Move previousMove = getHumanMove(previous);
+        result = results.get(results.size() - 1);
+        Move humanMove = getHumanMove(result);
 
-            result = results.get(results.size() - 1);
-            Move humanMove = result.getLoserMove();
-            if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
-                humanMove = result.getWinnerMove();
-
-            matrix[previousMove.ordinal()][humanMove.ordinal()]++;
-        }
+        matrix[previousMove.ordinal()][humanMove.ordinal()]++;
     }
 
     public int[][] getMatrix() {
         return matrix;
+    }
+
+    private Move getHumanMove(Result result){
+        Move humanMove = result.getLoserMove();
+        if (result.getWinnerPlayer().getPlayerType() == PlayerType.Human)
+            humanMove = result.getWinnerMove();
+        return humanMove;
     }
 }
