@@ -81,7 +81,7 @@ public class GameStatsController implements Initializable {
         ArrayList<Result> results = (ArrayList<Result>) gm.getGameState().getHistoricResults();
         if (results.size() > 0) {
             Player bot = (Player) ((results.get(results.size() - 1).getWinnerPlayer().getPlayerType() == PlayerType.AI) ? results.get(results.size() - 1).getWinnerPlayer() : results.get(results.size() - 1).getLoserPlayer());
-            double[][] matrix = bot.getBotAI().getMarkovMatrix();
+            int[][] matrix = bot.getBotAI().getMarkovMatrix();
 
             for (int i = 0; i < 3; i++) { //row
                 for (int j = 0; j < 3; j++) { //column
