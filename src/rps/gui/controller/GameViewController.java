@@ -62,7 +62,7 @@ public class GameViewController implements Initializable {
 
     private void bindSizes(){
         centerGraphicHBox.prefHeightProperty().bind(scene.heightProperty().subtract(playButtonsHBox.heightProperty())
-                .subtract(statisticsHBox.heightProperty().getValue()));
+                .subtract(statisticsHBox.heightProperty()));
         centerGraphicHBox.prefWidthProperty().bind(scene.widthProperty().subtract(menuBarVBox.widthProperty()));
 
         humanMoveVbox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));

@@ -4,6 +4,10 @@
 -fx-font-family: 'Roboto Mono', monospace;
 }
 
+.mfx-text-field {
+    -fx-border-color: #b8b6b6;
+}
+
 .menu-bar{
     -fx-background-color: white;
     -fx-background-radius: 5px;
@@ -22,6 +26,11 @@
 .labelTitle{
     -fx-text-fill: black;
     -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.labelIntro{
+    -fx-font-size: 32;
     -fx-font-weight: bold;
 }
 
