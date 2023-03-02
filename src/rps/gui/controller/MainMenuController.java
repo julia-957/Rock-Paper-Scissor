@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import rps.bll.player.IPlayer;
@@ -23,6 +25,7 @@ import java.util.ResourceBundle;
 public class MainMenuController implements Initializable {
     @FXML private MFXButton btnStartGame;
     @FXML private MFXTextField txtPlayerName;
+    @FXML private ImageView introImage;
 
     @FXML
     void btnStartAction(Event event) throws IOException {
@@ -48,6 +51,7 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        introImage.setImage(new Image("/rps/gui/view/icons/wilhelm.png"));
         txtPlayerName.setOnKeyReleased(event -> {
             if(event.getCode()== KeyCode.ENTER) {
                 try {

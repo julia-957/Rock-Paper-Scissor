@@ -3,19 +3,29 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="backgroundPane" stylesheets="@bootificashun.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.gui.controller.MainMenuController">
-   <center>
-      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" spacing="15.0" BorderPane.alignment="CENTER">
+   <bottom>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="338.0" minWidth="400.0" prefHeight="338.0" prefWidth="400.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
-            <MFXTextField fx:id="txtPlayerName" alignment="TOP_CENTER" floatMode="BORDER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Player name" />
+            <ImageView fx:id="introImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <MFXTextField fx:id="txtPlayerName" alignment="TOP_CENTER" floatMode="BORDER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="301.0" promptText="Player name" styleClass="text-field" />
             <MFXButton fx:id="btnStartGame" onAction="#btnStartAction" rippleColor="#bdbdbd" text="Start game" />
          </children>
          <padding>
-            <Insets left="20.0" right="20.0" />
+            <Insets left="50.0" right="50.0" />
          </padding>
       </VBox>
+   </bottom>
+   <center>
+      <Label styleClass="labelIntro" text="Rock, Paper, Scissors" BorderPane.alignment="BOTTOM_CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </BorderPane.margin>
+      </Label>
    </center>
 </BorderPane>

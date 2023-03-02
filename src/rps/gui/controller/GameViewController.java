@@ -62,7 +62,7 @@ public class GameViewController implements Initializable {
 
     private void bindSizes(){
         centerGraphicHBox.prefHeightProperty().bind(scene.heightProperty().subtract(playButtonsHBox.heightProperty())
-                .subtract(statisticsHBox.heightProperty().getValue()));
+                .subtract(statisticsHBox.heightProperty()));
         centerGraphicHBox.prefWidthProperty().bind(scene.widthProperty().subtract(menuBarVBox.widthProperty()));
 
         humanMoveVbox.prefWidthProperty().bind((centerGraphicHBox.prefWidthProperty()).divide(2));
@@ -82,22 +82,18 @@ public class GameViewController implements Initializable {
 
     @FXML
     private void clickRock(ActionEvent actionEvent){
-        Result result = gm.playRound(Move.Rock);
-        updateData(result);
+        playRound(Move.Rock);
     }
-
     @FXML
     private void clickPaper(ActionEvent actionEvent){
-        Result result = gm.playRound(Move.Paper);
-        updateData(result);
+        playRound(Move.Paper);
     }
-
     @FXML
     private void clickScissors(ActionEvent actionEvent){
-        Result result = gm.playRound(Move.Scissor);
-        updateData(result);
+        playRound(Move.Scissor);
     }
-    private void updateData(Result res){
+    private void playRound(Move move){
+        Result res = gm.playRound(move);
         updateLabels(res);
         updatePercentages();
         callUpdateMarkov();

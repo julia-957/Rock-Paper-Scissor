@@ -18,7 +18,7 @@ public class MarkovChain {
             humanMove = result.getWinnerMove();
 
         int nextIndex = 0;
-        for (int i =0; i < Move.values().length; i++){
+        for (int i =0; i < Move.values().length-1; i++){
             int prevIndex = humanMove.ordinal();
 
             if (matrix[prevIndex][i] > matrix[prevIndex][nextIndex])
