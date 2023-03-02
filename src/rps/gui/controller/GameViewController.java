@@ -71,20 +71,11 @@ public class GameViewController implements Initializable {
         labelBotWins.setText("0 %");
 
         Platform.runLater(() -> {
-            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent event) {
-                    switch (event.getCode()){
-                        case R:
-                            clickRock(event);
-                            break;
-                        case P:
-                            clickPaper(event);
-                            break;
-                        case S:
-                            clickScissors(event);
-                            break;
-                    }
+            scene.setOnKeyPressed(event -> {
+                switch (event.getCode()) {
+                    case R -> clickRock(event);
+                    case P -> clickPaper(event);
+                    case S -> clickScissors(event);
                 }
             });
         });
@@ -209,7 +200,6 @@ public class GameViewController implements Initializable {
         Parent root = loader.load();
         gameStatsController = loader.getController();
         gameStatsController.setGameManager(gm);
-        //System.out.println("GameViewController: " + gm);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

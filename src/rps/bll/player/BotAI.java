@@ -46,7 +46,6 @@ public class BotAI {
     }
 
     private Move botBasic(ArrayList<Result> results){
-        System.out.println("Bot basic!");
         result = results.get(results.size()-1);
 
         Move chosenMove = null;
@@ -77,15 +76,9 @@ public class BotAI {
         return random.nextInt(3);
     }
 
-
     private Move botMarkovChain(ArrayList<Result> results){
         markovChain.updateMarkovChain(results);
-        Move chosenMove = returnCounterMove(markovChain.getNextMove(results));
-        return chosenMove;
-    }
-
-    private Move botSpam(ArrayList<Result> results){
-        return returnCounterMove(getHumanMove(results.get(results.size()-1)));
+        return returnCounterMove(markovChain.getNextMove(results));
     }
 
     public int[][] getMarkovMatrix(){
